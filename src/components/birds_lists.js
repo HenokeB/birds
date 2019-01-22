@@ -1,0 +1,58 @@
+import React, { Component } from 'react';
+import { ActivityIndicator, FlatList, StyleSheet, Text, TextInput, View } from 'react-native';
+import BirdsList from './birds';
+
+export default class BirdsLists extends Component {
+
+  constructor(props) {
+    super(props);
+  }
+
+  renderFlatListItem(list) {
+    let title= list.list.rarity.charAt(0)
+    return (
+      <BirdsList
+        bird={list.list}
+        title={title}
+        onListPressed={this.props.onListPressed}
+      />
+    );
+  }
+
+  render() {
+    if (! this.props.lists) {
+      return (
+        <ActivityIndicator style={styles.container} animating={true} />
+      );
+    }
+    else if (this.props.lists.length == 0) {
+      return (
+        <View style={styles.container}>
+          <Text>No birds saved on this device yet or you are offline !</Text>
+        </View>
+      );
+    }
+    else {
+      return (
+        <View style={{ flex: 1 }}>
+          <FlatList style={{ flex: 1 }}
+            data={this.props.lists}
+            renderItem={({ item }) => this.renderFlatListItem(item)}
+            keyExtractor={item => item.list._rev}
+          >
+          </FlatList>
+        </View>
+      );
+    }
+  }
+}
+
+const styles = StyleSheet.create({
+  container: {
+    marginTop: 10,
+    marginLeft: 10,
+    marginRight: 10,
+    padding: 10,
+    alignItems: 'center'
+  }
+});
