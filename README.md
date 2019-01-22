@@ -19,7 +19,7 @@ Birds app is an Offline First native mobile app built using [React Native](https
 
 2. cd into the repo directory:
     
-    cd shopping-list-react-native-pouchdb
+    cd birds
 
 3. Install dependencies:
     
